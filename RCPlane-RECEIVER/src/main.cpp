@@ -21,28 +21,27 @@ int ElevatorPin = 25;
 int RudderPin = 26;
 int EnginePin = 27;
 //Plane Values
-struct Plane_Value {
+struct Plane {
   int AirleronLeftVal ;
   int AirleronRightVal ;
   int ElevatorVal ;
   int RudderVal ;
   int EngineVal ;
-}
+}Plane;
 
-Plane_Value Plane;
+
 
 //Address of this receiver 
 const byte address[6] = "00001";
 
 //Variables to store the values of the potentiometer and the joystick
-struct Data_Package {
+struct Data {
   int16_t potval;
   int16_t pitchval;
   int16_t rollval;
   int16_t yawval;
-}
+}Data;
 
-Data_Package data;
 
 void setup() {
   //attaching pins for plane system
@@ -78,23 +77,23 @@ void loop() {
   //Check whether there is data to be received
   if (radio.available()) {
     //Read the whole data and store it into the 'data' structure
-    radio.read(&data, sizeof(Data_Package)); 
+    radio.read(&Data, sizeof(Data)); 
     
     //Mapping the received data
     //Engine
-    Plane.EngineVal = map(data.potval,0, 4095, 0, 180);
+    Plane.EngineVal = map(Data.potval,0, 4095, 0, 180);
     
 
     //Elevator
-    Plane.ElevatorVal = map(data.pitchval,0, 4095, 0, 180);
+    Plane.ElevatorVal = map(Data.pitchval,0, 4095, 0, 180);
     
 
     //Roll control
-    Plane.AirleronRightVal = map(data.rollval,0, 4095, 0, 180);
-    Plane.AirleronLeftVal = map(data.rollval,0, 4095, 180, 0);
+    Plane.AirleronRightVal = map(Data.rollval,0, 4095, 0, 180);
+    Plane.AirleronLeftVal = map(Data.rollval,0, 4095, 180, 0);
 
     //Yaw control
-    Plane.RudderVal = map(data.yawval,0, 4095, 0, 180);
+    Plane.RudderVal = map(Data.yawval,0, 4095, 0, 180);
     
 
     //Write the values to the servos

@@ -17,14 +17,14 @@ int yaw = 35;
 const byte address[6] = "00001";
 
 //Variables to store the values of the potentiometer and the joystick
-struct Data_Package {
+struct Data {
   int16_t potval;
   int16_t pitchval;
   int16_t rollval;
   int16_t yawval;
-}
+}Data
 
-Data_Package data;
+
 
 void setup() {
 
@@ -52,21 +52,21 @@ void setup() {
 
 void loop() {
   //Speed Control
-  data.potval = analogRead(pot);
+  Data.potval = analogRead(pot);
   
 
   //Pitch Control
-  data.pitchval = analogRead(pitch);
+  Data.pitchval = analogRead(pitch);
   
 
   //Roll control
-  data.rollval = analogRead(roll);
+  Data.rollval = analogRead(roll);
   
 
   //Yaw control
-  data.yawval = analogRead(yaw);
+  Data.yawval = analogRead(yaw);
 
   // Send the whole data from the structure to the receiver
-  radio.write(&data, sizeof(Data_Package));
+  radio.write(&Data, sizeof(Data));
 
 }
