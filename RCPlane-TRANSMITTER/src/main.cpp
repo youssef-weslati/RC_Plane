@@ -22,7 +22,7 @@ struct Data {
   int16_t pitchval;
   int16_t rollval;
   int16_t yawval;
-}Data
+}Data;
 
 
 
