@@ -24,7 +24,14 @@ struct Data {
   int16_t yawval;
 }Data;
 
-
+//Plane Values
+struct Plane {
+  int16_t AirleronLeftVal ;
+  int16_t AirleronRightVal ;
+  int16_t ElevatorVal ;
+  int16_t RudderVal ;
+  int16_t EngineVal ;
+}Plane;
 
 void setup() {
 
@@ -35,7 +42,7 @@ void setup() {
   radio.setChannel(2);
 
   //Setting the size of the payload which is the data that is transmitted over the wireless communication link
-  radio.setPayloadSize(32);
+  radio.setPayloadSize(10);
 
   //Setting the DataRate which determine how fast the data is transmitted over the wireless communication link
   radio.setDataRate(RF24_250KBPS);
@@ -66,7 +73,23 @@ void loop() {
   //Yaw control
   Data.yawval = analogRead(yaw);
 
-  // Send the whole data from the structure to the receiver
-  radio.write(&Data, sizeof(Data));
+  //Mapping the received data
+  //Engine
+  Plane.EngineVal = map(Data.potval,0, 4095, 0, 180);
+  
+
+  //Elevator
+  Plane.ElevatorVal = map(Data.pitchval,0, 4095, 0, 90);
+  
+
+  //Roll control
+  Plane.AirleronRightVal = map(Data.rollval,0, 4095, 0, 90);
+  Plane.AirleronLeftVal = map(Data.rollval,0, 4095, 90, 0);
+
+  //Yaw control
+  Plane.RudderVal = map(Data.yawval,0, 4095, 0, 90);
+
+  //Send the whole data from the structure to the receiver
+  radio.write(&Plane, sizeof(Plane));
 
 }
