@@ -80,5 +80,13 @@ void loop() {
     Rudder.write(Plane.RudderVal);
 
   }
+  else
+  { //if we loos connection the plane will land 
+    Engine.write(0);
+    AirleronLeft.write(0);
+    AirleronRight.write(0);
+    Elevator.write(140);
+    Rudder.write(90);
+  }
 
 }
