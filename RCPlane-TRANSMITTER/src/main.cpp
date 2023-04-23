@@ -75,11 +75,11 @@ void loop() {
 
   //Mapping the received data
   //Engine
-  Plane.EngineVal = map(Data.potval,0, 4095, 0, 180);
+  Plane.EngineVal = map(Data.potval,0, 4095, 0, 255);
   
 
   //Elevator
-  Plane.ElevatorVal = map(Data.pitchval,0, 4095, 0, 90);
+  Plane.ElevatorVal = map(Data.pitchval,0, 4095, 0, 180);
   
 
   //Roll control
@@ -87,7 +87,7 @@ void loop() {
   Plane.AirleronLeftVal = map(Data.rollval,0, 4095, 90, 0);
 
   //Yaw control
-  Plane.RudderVal = map(Data.yawval,0, 4095, 0, 90);
+  Plane.RudderVal = map(Data.yawval,0, 4095, 0, 180);
 
   //Send the whole data from the structure to the receiver
   radio.write(&Plane, sizeof(Plane));
