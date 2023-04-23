@@ -81,7 +81,7 @@ void loop() {
 
   }
   else
-  { //if we loos connection the plane will land 
+  { //if we loose connection the plane will land 
     Engine.write(0);
     AirleronLeft.write(0);
     AirleronRight.write(0);
